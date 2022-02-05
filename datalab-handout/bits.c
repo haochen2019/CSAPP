@@ -177,7 +177,7 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-	int mask = 0xAA + 0xAA<<8 + 0xAA<<16+0xAA<<24;//construct a mask to sele						      //ct all odd-numbered bit\s from x;
+	int mask = 0xAA + (0xAA<<8) + (0xAA<<16)+(0xAA<<24);//construct a mask to select all odd-numbered bits from x;
        	return !((x&mask)^mask);//a^a=0
 }
 /* 
@@ -224,7 +224,10 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return !((y + (~x+1))>>31);
+  	int xs = x>>31&1;
+	int ys = y>>31&1;
+	int sign = (y + (~x+1))>>31&1;
+	return (!(xs^ys)&!sign) | ((xs^ys)&xs);
 }
 //4
 /* 
